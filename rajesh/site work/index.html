@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shuttering Material Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    h1 {
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      width: 100%;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+    }
+    .conversion-section {
+      margin-top: 20px;
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Shuttering Material Calculator</h1>
+
+  <!-- Input Fields -->
+  <label for="length">Length (in meters):</label>
+  <input type="number" id="length" placeholder="Enter length">
+
+  <label for="width">Width (in meters):</label>
+  <input type="number" id="width" placeholder="Enter width">
+
+  <label for="height">Height (in meters):</label>
+  <input type="number" id="height" placeholder="Enter height">
+
+  <label for="material">Material Type:</label>
+  <select id="material">
+    <option value="plywood">Plywood</option>
+    <option value="wooden-plank">Wooden Plank</option>
+    <option value="steel-sheet">Steel Sheet</option>
+    <option value="mivan">Mivan Shuttering</option>
+  </select>
+
+  <label for="thickness">Thickness (in mm):</label>
+  <input type="number" id="thickness" placeholder="Enter thickness">
+
+  <label for="price">Price Per Unit:</label>
+  <input type="number" id="price" placeholder="Enter price per unit">
+
+  <button onclick="calculate()">Calculate</button>
+
+  <!-- Result Section -->
+  <div class="result" id="result"></div>
+
+  <!-- Length Conversion Section -->
+  <div class="conversion-section">
+    <h3>Length Conversion</h3>
+    <label for="conversion-value">Value to Convert:</label>
+    <input type="number" id="conversion-value" placeholder="Enter value">
+
+    <label for="from-unit">From Unit:</label>
+    <select id="from-unit">
+      <option value="meter">Meter</option>
+      <option value="millimeter">Millimeter</option>
+      <option value="inch">Inch</option>
+      <option value="feet">Feet</option>
+    </select>
+
+    <label for="to-unit">To Unit:</label>
+    <select id="to-unit">
+      <option value="meter">Meter</option>
+      <option value="millimeter">Millimeter</option>
+      <option value="inch">Inch</option>
+      <option value="feet">Feet</option>
+    </select>
+
+    <button onclick="convertLength()">Convert</button>
+
+    <div class="result" id="conversion-result"></div>
+  </div>
+
+  <script>
+    // Function to calculate shuttering material quantity and cost
+    function calculate() {
+      // Get input values
+      const length = parseFloat(document.getElementById('length').value) || 0;
+      const width = parseFloat(document.getElementById('width').value) || 0;
+      const height = parseFloat(document.getElementById('height').value) || 0;
+      const material = document.getElementById('material').value;
+      const thickness = parseFloat(document.getElementById('thickness').value) || 0;
+      const pricePerUnit = parseFloat(document.getElementById('price').value) || 0;
+
+      // Validate inputs
+      if (length <= 0 || width <= 0 || height <= 0 || pricePerUnit <= 0) {
+        document.getElementById('result').innerHTML = '<p style="color: red;">Please enter valid dimensions and price.</p>';
+        return;
+      }
+
+      // Calculate total area (Indian Standard: IS 1200 for measurement)
+      const wallArea = 2 * (length + width) * height; // Two walls on each side
+      const slabArea = length * width; // Top slab
+      const totalArea = wallArea + slabArea;
+
+      // Add wastage factor (5%)
+      const wastageFactor = 1.05;
+      const totalAreaWithWastage = totalArea * wastageFactor;
+
+      // Material-specific calculations
+      let materialDetails = '';
+      let additionalDetails = '';
+      let quantity = 0;
+
+      switch (material) {
+        case 'plywood':
+          materialDetails = `Plywood (${thickness}mm thick)`;
+          // Standard plywood size: 2.44m x 1.22m (area = 2.9768 sq.m)
+          const plywoodSheetArea = 2.44 * 1.22;
+          const plywoodSheetsRequired = Math.ceil(totalAreaWithWastage / plywoodSheetArea);
+          quantity = plywoodSheetsRequired;
+          additionalDetails = `<p><strong>Plywood Sheets Required:</strong> ${plywoodSheetsRequired}</p>`;
+          break;
+        case 'wooden-plank':
+          materialDetails = `Wooden Plank (${thickness}mm thick)`;
+          quantity = totalAreaWithWastage; // Quantity in square meters
+          break;
+        case 'steel-sheet':
+          materialDetails = `Steel Sheet (${thickness}mm thick)`;
+          quantity = totalAreaWithWastage; // Quantity in square meters
+          break;
+        case 'mivan':
+          materialDetails = `Mivan Shuttering`;
+          // Standard Mivan panel size: 1.22m x 2.44m (area = 2.9768 sq.m)
+          const mivanPanelArea = 1.22 * 2.44; // Area of one Mivan panel
+          const panelsRequired = Math.ceil(totalAreaWithWastage / mivanPanelArea); // Round up to nearest whole number
+          quantity = panelsRequired; // Quantity in number of panels
+          additionalDetails = `<p><strong>Panels Required:</strong> ${panelsRequired} Mivan Panels</p>`;
+          break;
+        default:
+          materialDetails = 'Unknown Material';
+      }
+
+      // Calculate total cost
+      const totalCost = quantity * pricePerUnit;
+
+      // Display results
+      document.getElementById('result').innerHTML = `
+        <h3>Results:</h3>
+        <p><strong>Total Area (with 5% wastage):</strong> ${totalAreaWithWastage.toFixed(2)} sq. meters</p>
+        <p><strong>Material:</strong> ${materialDetails}</p>
+        <p><strong>Wall Area:</strong> ${wallArea.toFixed(2)} sq. meters</p>
+        <p><strong>Slab Area:</strong> ${slabArea.toFixed(2)} sq. meters</p>
+        ${additionalDetails}
+        <p><strong>Quantity:</strong> ${quantity} ${material === 'mivan' ? 'panels' : 'sq. meters'}</p>
+        <p><strong>Price Per Unit:</strong> ₹${pricePerUnit.toFixed(2)}</p>
+        <p><strong>Total Cost:</strong> ₹${totalCost.toFixed(2)}</p>
+      `;
+    }
+
+    // Function to convert length between units
+    function convertLength() {
+      const value = parseFloat(document.getElementById('conversion-value').value) || 0;
+      const fromUnit = document.getElementById('from-unit').value;
+      const toUnit = document.getElementById('to-unit').value;
+
+      // Validate input
+      if (value <= 0) {
+        document.getElementById('conversion-result').innerHTML = '<p style="color: red;">Please enter a valid value to convert.</p>';
+        return;
+      }
+
+      // Conversion factors
+      const conversionFactors = {
+        meter: 1,
+        millimeter: 1000,
+        inch: 39.3701,
+        feet: 3.28084
+      };
+
+      // Convert to base unit (meters)
+      const valueInMeters = value / conversionFactors[fromUnit];
+
+      // Convert to target unit
+      const convertedValue = valueInMeters * conversionFactors[toUnit];
+
+      // Display result
+      document.getElementById('conversion-result').innerHTML = `
+        <p><strong>${value} ${fromUnit}(s)</strong> is equal to <strong>${convertedValue.toFixed(2)} ${toUnit}(s)</strong>.</p>
+      `;
+    }
+  </script>
+</body>
+</html>

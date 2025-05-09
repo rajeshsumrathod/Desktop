@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Hub - Your Ultimate Calculation Tool</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom Styles */
+        .navbar {
+            background-color: #2c3e50;
+        }
+
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+
+        .hero {
+            background: url('https://cdn.qwenlm.ai/output/e01ec2d3-edc8-4251-8505-4219b61a3537/t2i/1f6224f6-5ce3-4998-961f-53354476a147/c8d4be4c-21bc-496e-8d59-cf5a7c485012.png') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h1 {
+            color: #e76f51;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            color: #e79751;
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .hero button {
+            background-color: #f4a261;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .hero button:hover {
+            background-color: #e76f51;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        /* Calculator Cards */
+        .calculator-card {
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .calculator-card:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Rathod Calculator Hub</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="calculators.html">Calculators</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Welcome to Rathod Calculator Hub</h1>
+        <p>Your ultimate tool for all types of site calculations.</p>
+        
+    </section>
+
+    <!-- Calculators Section -->
+    <section class="py-5 bg-light">
+        <div class="container text-center">
+            <h2>Our Calculators</h2>
+            <p>Choose from a wide range of calculators to suit your needs:</p>
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="card calculator-card">
+                        <div class="card-body">
+                            <h5 class="card-title">RMC Calculator</h5>
+                            <p class="card-text">To calculate the amount of ready-mix concrete needed on site.</p>
+                            <a href="RMC.html" class="btn btn-primary">Use Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card calculator-card">
+                        <div class="card-body">
+                            <h5 class="card-title">TMT Bar Calculator</h5>
+                            <p class="card-text">A TMT bar calculator helps you determine the weight and quantity of TMT (Thermo-Mechanically Treated) steel bars</p>
+                            <a href="TMTBar.html" class="btn btn-success">Use Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card calculator-card">
+                        <div class="card-body">
+                            <h5 class="card-title">BBS Calculator</h5>
+                            <p class="card-text">BBS calculator helps calculate the dimensions and quantities of steel bars needed for construction, ensuring accurate and efficient material use</p>
+                            <a href="bbs.html" class="btn btn-warning">Use Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card calculator-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Shuttering Calculator</h5>
+                            <p class="card-text">Calculate Shuttering material.</p>
+                            <a href="shuttring.HTML" class="btn btn-danger">Use Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card calculator-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Loan Calculator</h5>
+                            <p class="card-text">Calculate loan repayments, interest rates, and total payment amounts.</p>
+                            <a href="note.html" class="btn btn-info">Use Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card calculator-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Currency Converter</h5>
+                            <p class="card-text">Convert between different currencies with real-time exchange rates.</p>
+                            <a href="currency-converter.html" class="btn btn-secondary">Use Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-5">
+        <div class="container text-center">
+            <h2>About Us</h2>
+            <p>We are dedicated to providing the best online calculators for all your calculation needs. just need quick calculations, we've got you covered!</p>
+            <a href="about.html" class="btn btn-primary">Learn More</a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-5 bg-light">
+        <div class="container text-center">
+            <h2>Contact Us</h2>
+            <p>Have any questions or suggestions? Feel free to reach out to us!</p>
+            <a href="" class="btn btn-danger">Contact Now : 6362223503</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Rathod Calculator Hub. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS (Optional, for interactive components like dropdowns) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
